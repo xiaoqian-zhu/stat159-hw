@@ -54,5 +54,7 @@ print(correlation_matrix)
 sink()
 
 # scatterplot for correlation matrix
-
-
+png('images/scatterplot-matix.png')
+pairs(advertising)
+dev.off()
+save(correlation_matrix,file = 'data/correlation-matrix.RData')

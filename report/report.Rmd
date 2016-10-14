@@ -1,0 +1,12 @@
+---
+title: "Simple Regression Analysis"
+author: "Xiaoqian Zhu"
+data: "Octorber 14, 2016"
+output: pdf_document
+---
+
+## Abstract
+In this report we extend the scope of the previous HW that apply computtaional tools to reproduce the main results displayed in section 3.2 (page 71 to 82) of the book *An Introduction to Statistical Learning* by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani. [Link to the book](http://www-bcf.usc.edu/~gareth/ISL/)
+
+## Introduction
+

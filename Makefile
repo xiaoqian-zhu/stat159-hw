@@ -1,25 +1,21 @@
-.PHONY: all data eda regression report tests clean
+.PHONY: all data tests eda regression report clean session
 
-# Prony Targets
-adv = data/Advertising.csv
+#Prony Targets
+all = eda regression report
+eda = data/eda-output.txt
 regression = data/regression.RData
-cormatrix = data/correlation-matrix.RData
-func = code/Functions/regression-functions.R
-rmd = report/report.rmd
+report = report/report.pdf
+session = session-info.txt
+Adv = data/Advertising.csv
 
-all: eda regression report
-
-# loading csv
 data:
-	cd data; curl -O http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv
+	curl http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv >> $(Adv)
 
-# test-that
 tests:
 	cd code; Rscript test-that.R
 
 session-info.txt:
 	cd code/scripts; Rscript session-info-script.R
-
 
 
 #Now creating files once called from the phony targets
@@ -31,3 +27,6 @@ data/eda-output.txt:
 
 report/report.pdf: data/regression.RData data/eda-output.txt
 	cd report; R -e "rmarkdown::render('report.Rmd')"
+	
+clean:
+	rm report/report.pdf

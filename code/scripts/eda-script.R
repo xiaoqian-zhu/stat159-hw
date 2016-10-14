@@ -27,7 +27,7 @@ png('images/histogram-radio.png')
 hist(as.numeric(radio), breaks = 10,
      main = 'Histogram of Frequency of Radio',
      xlab = 'Radio Advertising Budget (in thousands of dollars)',
-     ylab = 'Frequency',)
+     ylab = 'Frequency')
 dev.off()
 
 # Newspaper
@@ -35,12 +35,19 @@ png('images/histogram-newspaper.png')
 hist(as.numeric(newspaper), breaks = 10,
      main = 'Histogram of Frequency of Newspaper',
      xlab = 'Newspaper Advertising Budget (in thousands of dollars)',
-     ylab = 'Frequency',)
+     ylab = 'Frequency')
+dev.off()
+
+# scatterplot for correlation matrix
+png('images/scatterplot-matrix.png')
+pairs(~tv+radio+newspaper+sales,
+      main= 'Scatterplot Matrix')
 dev.off()
 
 # Summary Tables
-correlation_matrix <- cor(advertising)
-sink('data/eda-output.txt')
+sink(file='data/eda-output.txt')
+correlation_matrix = cor(advertising[sapply(advertising, is.numeric)])
+print(correlation_matrix)
 cat('Summary of TV\n')
 summary(as.numeric(tv))
 cat('Summary of Radio\n')
@@ -50,11 +57,7 @@ summary(as.numeric(newspaper))
 cat('Summary of Sales\n')
 summary(as.numeric(sales))
 cat('\nMatrix of Correlations\n')
-print(correlation_matrix)
 sink()
 
-# scatterplot for correlation matrix
-png('images/scatterplot-matix.png')
-pairs(advertising)
-dev.off()
 save(correlation_matrix,file = 'data/correlation-matrix.RData')
+

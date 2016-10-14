@@ -21,7 +21,7 @@ Looking at the data set, we are going study the relationship between *Sales* and
 ## Results
 We first apply a simple linear regression on each expaining variable tables with Sales. Table 1 shows results from the simple single regression of sales on TV.
 
-```{r, eval= FALSE}
+```{r, results = 'asis', eval= FALSE}
 load('../data/regression.RData')
 library("xtable")
 table_TV <- xtable(regression_sum_TV,caption = 'Simple Regression of Sales on TV',digits = 4)
@@ -33,7 +33,7 @@ print(table_TV, caption.placement = 'top',comment = getOption("xtable.comment", 
 
 Table 2 shows the results from simple single regression of sales on radio.
 
-```{r, eval=FALSE}
+```{r, results = 'asis', eval= FALSE}
 load('../data/regression.RData')
 library("xtable")
 table_Radio <- xtable(regression_sum_Radio,caption = 'Simple Regression of Sales on Radio',digits = 4)
@@ -45,7 +45,7 @@ print(table_Radio, caption.placement = 'top',comment = getOption("xtable.comment
 
 Table 3 shows the results from simple single regression of sales on newspaper.
 
-```{r, eval=FALSE}
+```{r, results = 'asis', eval= FALSE}
 load('../data/regression.RData')
 library("xtable")
 table_Newspaper <- xtable(regression_sum_Newspaper,caption = 'Simple Regression of Sales on Newspaper',digits = 4)
@@ -57,7 +57,7 @@ print(table_Newspaper, caption.placement = 'top',comment = getOption("xtable.com
 
 Then, we apply the a multiple linear regression of sales on TV, radio and regression. Table 4 shows the results from this multiple linear regression.
 
-```{r, eval=FALSE}
+```{r, results = 'asis', eval= FALSE}
 load('../data/regression.RData')
 library("xtable")
 table_multi <- xtable(regression_sum_multi,caption = 'Multiple Regression Table',digits = 4)
@@ -69,7 +69,7 @@ print(table_multi, caption.placement = 'top',comment = getOption("xtable.comment
 
 Moremover, in this homework, we also compute the correlation matrix among TV, radio, newspaper, and sales. Table 5 shows the correlation matrix for TV, radio, newspaper, and sales for the Advertising data.
 
-```{r, eval=FALSE}
+```{r, results = 'asis', eval= FALSE}
 load('data/coorelation-matrix.RData')
 library("xtable")
 correlation_matrix = cor(advertising[sapply(advertising, is.numeric)])
@@ -89,7 +89,7 @@ we now address each of these questions in turn.
 ### One: Is at least one of the predictors useful in predicting the response?
 Recall that in the  simple linear regression setting, in order to determine whether there is a relationship between the response and the predictor we can simply check whether $\beta0 = 0$. Now, we are performing a multiple linear regression with 3 predictors, thus we need to ask whether all of the regression coefficients are 0. In this case, whether $\beta_1 = \beta_2 = \beta3 = 0$. As in the simple linear regression setting, we use a hypothesis test to answer this question. We test the null hypothesis versus the alternative (which I specifically listed in introduction). Such hypothesis test is performed by computing the F-statistic. WHen there is no relationship between the response and predictors, one would expect the F-statistic to take a value close to 1. On the other hand, if alternative hypothesis is ture, then we expect F-statistic to be greater than 1. 
 
-```{r, eval=FALSE}
+```{r, results = 'asis', eval= FALSE}
 library(xtable)
 Quantity <- c('RSS', 'R2', 'F-stat')
 Value <- c(regression_sum_multi$sigma,

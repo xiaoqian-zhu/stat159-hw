@@ -9,4 +9,88 @@ output: pdf_document
 In this report we extend the scope of the previous HW that apply computtaional tools to reproduce the main results displayed in section 3.2 (page 71 to 82) of the book *An Introduction to Statistical Learning* by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani. [Link to the book](http://www-bcf.usc.edu/~gareth/ISL/)
 
 ## Introduction
+The overall goal is to provide advice on how to improve sales of the particular product. More specificcaly, the idea is to see whether there is an association between advertising on medium and sales, and if so, which medium would be the best to improve sales of the particular product. In this homework, we are specificaally looking at how the advertisement on TV, radio and newspaper affect sales of the particular product; in other words, we are seeing advertising on TV, newspaper and radio as explainary variables to explain the reponses to sales. I will first check the assiociation between each variable and sales; then, I am going to develop an multivariable regression model that can be used to estimate sales on the basis of advertising budget on TV, radio and newspaper using the advertising data set, which compiled by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani.
+
+## Data
+In this homework, we are working with Advertising data set [(Link for Advertising.csv)](http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv), which consists of *Sales* (in thousands of units) of a particular product in 200 different markets, along with advertising budgets (in thousands of dollars) for the product in each of those markets for three different media: *TV*, *Radio*, and *Newspaper*. In this homework, we are working on the three media and *sales* to find out weather they have an association.
+
+## Methodology
+
+
+## Results
+tables Simple single regression of sales on TV
+```{r, eval= FALSE}
+load('../data/regression.RData')
+library("xtable")
+table_TV <- xtable(regression_sum_TV,caption = 'Simple Regression of Sales on TV',digits = 4)
+
+row.names(table_TV) <- c('(Intercept)','TV')
+
+print(table_TV, caption.placement = 'top',comment = getOption("xtable.comment", FALSE))
+```
+
+Simple single regression of sales on radio
+```{r, eval=FALSE}
+load('../data/regression.RData')
+library("xtable")
+table_Radio <- xtable(regression_sum_Radio,caption = 'Simple Regression of Sales on Radio',digits = 4)
+
+row.names(table_Radio) <- c('(Intercept)','Radio')
+
+print(table_Radio, caption.placement = 'top',comment = getOption("xtable.comment", FALSE))
+```
+
+Simple single regression of sales on newspaper
+```{r, eval=FALSE}
+load('../data/regression.RData')
+library("xtable")
+table_Newspaper <- xtable(regression_sum_Newspaper,caption = 'Simple Regression of Sales on Newspaper',digits = 4)
+
+row.names(table_Radio) <- c('(Intercept)','Newspaper')
+
+print(table_Newspaper, caption.placement = 'top',comment = getOption("xtable.comment", FALSE))
+```
+
+Multiple linear regression
+```{r, eval=FALSE}
+load('../data/regression.RData')
+library("xtable")
+table_multi <- xtable(regression_sum_multi_variables,caption = 'Multiple Regression Table',digits = 4)
+
+row.names(table_Radio) <- c('(Intercept)','TV', 'Radio', 'Newspaper')
+
+print(table_multi, caption.placement = 'top',comment = getOption("xtable.comment", FALSE))
+```
+
+Correlation matrix for TV, radio, newspaper, and sales for the
+Advertising data.
+```{r, eval=FALSE}
+load('../data/coorelation-matrix.RData')
+library("xtable")
+correlation_matrix <- round(correlation_matrix, digits = 4)
+correlation_matrix[lower.tri(correlation_matrix)] <- ''
+cor_matrix <- xtable(correlation_matrix, caption = 'Correlation matrix for TV, radio, newspaper, and sales for the
+Advertising data', digits = 4)
+print(table_multi, caption.placement = 'top',comment = getOption("xtable.comment", FALSE))
+```
+
+1.  Is at least one of the predictors useful in predicting the response?  
+2.  Do all predictors help to explain the response, or is only a subset of the predictors useful?  
+3.  How well does the model fit the data?  
+4.  How accurate is the prediction?  
+
+### Is at least one of the predictors useful in predicting the response?
+
+```{r, eval=FALSE}
+library(xtable)
+Quantity <- c('RSS', 'R2', 'F-stat')
+Value <- c(regression_sum_multi_variables$sigma,
+           regression_sum_multi_variables$adj.r.squared,
+           regression_sum_multi_variables$fstatistic[1])
+results2 <- data.frame(Quantity, Value)
+
+table2 <- xtable(results2, caption = 'More information about the least squares model for the multiple regression')
+
+print(table2, caption.placement = 'top', comment = getOption("xtable.comment", FALSE))
+```
 

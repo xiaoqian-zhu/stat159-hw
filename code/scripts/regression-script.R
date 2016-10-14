@@ -11,6 +11,10 @@ regression_sum_TV <- summary(regression_TV)
 regression_sum_Radio <- summary(regression_Radio)
 regression_sum_Newspaper <- summary(regression_Newspaper)
 
+# Regression with multiple variables
+regression_multi_variables <- lm(Sales ~ TV + Radio + Newspaper, data=advertising)
+regression_sum_multi <- summary(regression_multi_variables)
+
 # Scatterplots of regression with single variable with regression line
 # TV
 png('images/scatterplot-tv-sales.png')
@@ -42,9 +46,6 @@ plot(Newspaper ~ Sales, data=advertising,
 abline(regression_Newspaper, col="#bd0300",lwd=2)
 dev.off()
 
-# Regression with multiple variables
-regression_multi_variables <- lm(Sales ~ TV + Radio + Newspaper, data=advertising)
-regression_sum_multi_variables <- summary(regression_multi_variables)
 
 # Plots of regression with multiple variables
 png("images/residual-plot.png")
@@ -62,7 +63,6 @@ dev.off()
 # Saving to Regression.RData
 save(regression_TV, regression_Radio, regression_Newspaper, 
      regression_multi_variables, 
-     regression_sum_TV,regression_sum_Radio,regression_sum_Newspaper, 
-     regression_sum_multi_variables,
+     regression_sum_TV,regression_sum_Radio,regression_sum_Newspaper,regression_sum_multi,
      file = 'data/regression.RData')
 

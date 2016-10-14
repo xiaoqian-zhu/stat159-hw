@@ -21,10 +21,12 @@ Looking at the data set, we are going study the relationship between *Sales* and
 ## Results
 We first apply a simple linear regression on each expaining variable tables with Sales. Table 1 shows results from the simple single regression of sales on TV.
 
-```{r results = 'asis', eval= FALSE}
-load('../data/regression.RData')
+```{r results = 'asis', eval= T}
+load("~/stat159-hw/stat159-fall2016-hw03/data/regression.RData")
 library("xtable")
-table_TV <- xtable(regression_sum_TV,caption = 'Simple Regression of Sales on TV',digits = 4)
+table_TV <- xtable(regression_sum_TV,
+                   caption = 'Simple Regression of Sales on TV',
+                   digits = 4)
 
 row.names(table_TV) <- c('(Intercept)','TV')
 
@@ -33,8 +35,8 @@ print(table_TV, caption.placement = 'top',comment = getOption("xtable.comment", 
 
 Table 2 shows the results from simple single regression of sales on radio.
 
-```{r results = 'asis', eval= FALSE}
-load('../data/regression.RData')
+```{r results = 'asis', eval= T}
+load("~/stat159-hw/stat159-fall2016-hw03/data/regression.RData")
 library("xtable")
 table_Radio <- xtable(regression_sum_Radio,caption = 'Simple Regression of Sales on Radio',digits = 4)
 
@@ -45,8 +47,8 @@ print(table_Radio, caption.placement = 'top',comment = getOption("xtable.comment
 
 Table 3 shows the results from simple single regression of sales on newspaper.
 
-```{r results = 'asis', eval= FALSE}
-load('../data/regression.RData')
+```{r results = 'asis', eval= T}
+load("~/stat159-hw/stat159-fall2016-hw03/data/regression.RData")
 library("xtable")
 table_Newspaper <- xtable(regression_sum_Newspaper,caption = 'Simple Regression of Sales on Newspaper',digits = 4)
 
@@ -57,24 +59,23 @@ print(table_Newspaper, caption.placement = 'top',comment = getOption("xtable.com
 
 Then, we apply the a multiple linear regression of sales on TV, radio and regression. Table 4 shows the results from this multiple linear regression.
 
-```{r results = 'asis', eval= FALSE}
-load('../data/regression.RData')
+```{r results = 'asis', eval= T}
+load("~/stat159-hw/stat159-fall2016-hw03/data/regression.RData")
 library("xtable")
 table_multi <- xtable(regression_sum_multi,caption = 'Multiple Regression Table',digits = 4)
 
-row.names(table_Radio) <- c('(Intercept)','TV', 'Radio', 'Newspaper')
+row.names(table_multi) <- c('(Intercept)','TV', 'Radio', 'Newspaper')
 
 print(table_multi, caption.placement = 'top',comment = getOption("xtable.comment", FALSE))
 ```
 
 Moremover, in this homework, we also compute the correlation matrix among TV, radio, newspaper, and sales. Table 5 shows the correlation matrix for TV, radio, newspaper, and sales for the Advertising data.
 
-```{r results = 'asis', eval= FALSE}
-load('data/coorelation-matrix.RData')
+```{r results = 'asis', eval= T}
+load("~/stat159-hw/stat159-fall2016-hw03/data/correlation-matrix.RData")
 library("xtable")
-correlation_matrix = cor(advertising[sapply(advertising, is.numeric)])
 cor_matrix <- xtable(correlation_matrix, caption = 'Correlation matrix for TV, radio, newspaper, and sales for the Advertising data', digits = 4)
-print(table_multi, caption.placement = 'top',comment = getOption("xtable.comment", FALSE))
+print(cor_matrix, caption.placement = 'top',comment = getOption("xtable.comment", FALSE))
 ```
 
 When we perform multiple linear regression, we usually are intrested in answering a few important questions.
@@ -84,12 +85,13 @@ When we perform multiple linear regression, we usually are intrested in answerin
 3.  How well does the model fit the data?  
 4.  How accurate is the prediction?  
 
-we now address each of these questions in turn.
+We now address each of these questions in turn.
 
 ### One: Is at least one of the predictors useful in predicting the response?
-Recall that in the  simple linear regression setting, in order to determine whether there is a relationship between the response and the predictor we can simply check whether $\beta0 = 0$. Now, we are performing a multiple linear regression with 3 predictors, thus we need to ask whether all of the regression coefficients are 0. In this case, whether $\beta_1 = \beta_2 = \beta3 = 0$. As in the simple linear regression setting, we use a hypothesis test to answer this question. We test the null hypothesis versus the alternative (which I specifically listed in introduction). Such hypothesis test is performed by computing the F-statistic. WHen there is no relationship between the response and predictors, one would expect the F-statistic to take a value close to 1. On the other hand, if alternative hypothesis is ture, then we expect F-statistic to be greater than 1. 
+Recall that in the  simple linear regression setting, in order to determine whether there is a relationship between the response and the predictor we can simply check whether $\beta0 = 0$. Now, we are performing a multiple linear regression with 3 predictors, thus we need to ask whether all of the regression coefficients are 0. In this case, whether $\beta_1 = \beta_2 = \beta_3 = 0$. As in the simple linear regression setting, we use a hypothesis test to answer this question. We test the null hypothesis versus the alternative (which I specifically listed in introduction). Such hypothesis test is performed by computing the F-statistic. WHen there is no relationship between the response and predictors, one would expect the F-statistic to take a value close to 1. On the other hand, if alternative hypothesis is ture, then we expect F-statistic to be greater than 1. 
 
-```{r results = 'asis', eval= FALSE}
+```{r results = 'asis', eval= T}
+load("~/stat159-hw/stat159-fall2016-hw03/data/regression.RData")
 library(xtable)
 Quantity <- c('RSS', 'R2', 'F-stat')
 Value <- c(regression_sum_multi$sigma,
@@ -103,7 +105,7 @@ print(table2, caption.placement = 'top', comment = getOption("xtable.comment", F
 ```
 
 ```{r, echo=FALSE}
-load('../data/regression.RData')
+load("~/stat159-hw/stat159-fall2016-hw03/data/regression.RData")
 ```
 
 The The F-statistic for the multiple linear regression model obtained by regressing *sales* onto *radio*, *TV*, and *newspaper* is shown in Table 6. In this example, the F-statistic = `r round(regression_sum_multi$fstatistic[[1]], digits = 0)`. Since this is far larger than 1, it provides compelling evidence against the null hypothesis. In other words, the large F-statistic suggests that at least one of the advertising media must be related to *sales*.
@@ -113,7 +115,7 @@ The The F-statistic for the multiple linear regression model obtained by regress
 It is possible that all of the predictors are associated with the response, but it is more often the case that the response is only realted to a subset of the predictors. Then, we would like to perform a variable selection that fit a single model involving each predictor to determine which predictors are associated with the response. Looking at each test's p-value, we are able to explain whether it is associated with *sales*. If the p-value is small, then we would be able to believe that there is a relationship between the single predictor with *sales*. On the other hand, if the p-value is large, then we have reason to believe that there is no relationship between two.  Looking at Tables of single linear regressions, we can see that the estimated coefficient on TV is 
 
 ### Three: How well does the model fit the data?  
-Two of the most common numerical measures of model fit are RSE and R^2. An R^2 values close to 1 indicates that the model explains a large protion of the variance in the response variable. We saw in Table 6, for the Advertising data set, the model that uses all there advertising media to predict sales has an R^2 value of `r round(regression_sum_multi$r.squared, digits = 4 )`  This is very close to 1, which means that our explainatory varibales work well to explain changes in sales. Furthermore, RSE is the estimate of the standard deviation of error, and when it is small, it indicates a well-fitted model on data. In this multiple regression model, the RSE = ` r round(regression_sum_multi$sigma, digits = 4)` . Thus, we can also tell from RSE that is a well-fitted model on advertising data set. 
+Two of the most common numerical measures of model fit are RSE and R^2. An R^2 values close to 1 indicates that the model explains a large protion of the variance in the response variable. We saw in Table 6, for the Advertising data set, the model that uses all there advertising media to predict sales has an R^2 value of `r round(regression_sum_multi$r.squared, digits = 4 )`  This is very close to 1, which means that our explainatory varibales work well to explain changes in sales. Furthermore, RSE is the estimate of the standard deviation of error, and when it is small, it indicates a well-fitted model on data. In this multiple regression model, the RSE is `r round(regression_sum_multi$sigma, digits = 4)`. Thus, we can also tell from RSE that is a well-fitted model on advertising data set. 
 
 ### Four: How accurate is the prediction?
 There are uncertainty associated with the estimated prediciton of sales, to answer how accurate is the prediction, we can simply look at the standard error of each estimated coefficients in Table 4. The standard of TV, Radio and newspaper are all very small, which means that we can be confidently sure that the estimation of explaintary variables are close to the true model. Furthermore, the confidence can also be shown by R^2 like the previous question, that the R^2 value is close to 1, which means that the prediction model is well-fitted.

@@ -18,3 +18,14 @@ include the table for `TV`.
 - Table 3.4 (page 74): Coefficient estimates of the least squares model.
 - Table 3.5 (page 75): Correlation matrix.
 - Table 3.6 (page 76): $RSE$, $R^2$ and $F$-statistic of the least squares model.
+
+###License
+
+
+![Creative Common License](https://i.creativecommons.org/l/by/4.0/88x31.png)
+
+
+All the media content(narrative and images) is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+
+All source code (i.e. code in R script files) is licensed under GNU General Public License, version 3. See the `LICENSE` file
+for more information.

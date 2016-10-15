@@ -33,7 +33,7 @@ hist(advertising$Newspaper, xlab="Newspaper", main="Histogram of Newspaper")
 
 ```{r,out.width="250px",fig.align='center'}
 advertising <- read.csv('~/stat159-hw/stat159-fall2016-hw03/data/Advertising.csv', header = TRUE)
-hist(advertising$Sales, xlab="Sales", main="Figure 4. Histogram of Sales")
+hist(advertising$Sales, xlab="Sales", main="Histogram of Sales")
 ```
 
 These histograms give us a broad view of how the Advertising dataset distribute. 

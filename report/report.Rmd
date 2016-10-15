@@ -1,5 +1,5 @@
 ---
-title: "Simple Regression Analysis"
+title: "Multiple Regression Analysis"
 author: "Xiaoqian Zhu"
 data: "Octorber 14, 2016"
 output: pdf_document
@@ -13,6 +13,30 @@ The overall goal is to provide advice on how to improve sales of the particular 
 
 ## Data
 In this homework, we are working with Advertising data set [(Link for Advertising.csv)](http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv), which consists of *Sales* (in thousands of units) of a particular product in 200 different markets, along with advertising budgets (in thousands of dollars) for the product in each of those markets for three different media: *TV*, *Radio*, and *Newspaper*. In this homework, we are working on the three media and *sales* to find out weather they have an association.
+
+We can easily see how *TV*, *Radio*,*Newspaper*, and *sales* distribute through histrograms below:
+
+```{r,out.width="250px",fig.align='center'}
+advertising <- read.csv('~/stat159-hw/stat159-fall2016-hw03/data/Advertising.csv', header = TRUE)
+hist(advertising$TV, xlab="TV", main= "Histogram of TV")
+```
+
+```{r,out.width="250px",fig.align='center'}
+advertising <- read.csv('~/stat159-hw/stat159-fall2016-hw03/data/Advertising.csv', header = TRUE)
+hist(advertising$Radio, xlab="Radio", main="Histogram of Radio")
+```
+
+```{r,out.width="250px",fig.align='center'}
+advertising <- read.csv('~/stat159-hw/stat159-fall2016-hw03/data/Advertising.csv', header = TRUE)
+hist(advertising$Newspaper, xlab="Newspaper", main="Histogram of Newspaper")
+```
+
+```{r,out.width="250px",fig.align='center'}
+advertising <- read.csv('~/stat159-hw/stat159-fall2016-hw03/data/Advertising.csv', header = TRUE)
+hist(advertising$Sales, xlab="Sales", main="Figure 4. Histogram of Sales")
+```
+
+These histograms give us a broad view of how the Advertising dataset distribute. 
 
 ## Methodology
 Looking at the data set, we are going study the relationship between *Sales* and a group of variables, including, *TV*, *Radio*, and *Newspaper*. We start our analysis by setting up null and alternative hypothesis. The null hypothesis is, $H_{0}$:$\beta_1 = \beta_2 = \beta3 = 0$, that there is no relationship between TV, radio and newspaper advertising budget and sales; the alternative hypothesis is, $H_{1}$, that there exists one $\beta_i$ that not equal to 0. To test the hypothesis, we apply a multiple linear regression model,$Sales = \beta_0 + \beta_1 TV + \beta_2 Radio + \beta_3 Newspaper + error$, on the data set, Advertising.csv, to get the estimates of $\beta_0$, $\beta_1$,$\beta_2$, and $\beta_3$, which are $\hat{\beta_0}$, $\hat{\beta_1}$, $\hat{\beta_2}$, and $\hat{\beta_3}$. In this homework, we will also use the least squares model to our data for the regression analysis like the previous one.
@@ -88,7 +112,7 @@ When we perform multiple linear regression, we usually are intrested in answerin
 We now address each of these questions in turn.
 
 ### One: Is at least one of the predictors useful in predicting the response?
-Recall that in the  simple linear regression setting, in order to determine whether there is a relationship between the response and the predictor we can simply check whether $\beta0 = 0$. Now, we are performing a multiple linear regression with 3 predictors, thus we need to ask whether all of the regression coefficients are 0. In this case, whether $\beta_1 = \beta_2 = \beta_3 = 0$. As in the simple linear regression setting, we use a hypothesis test to answer this question. We test the null hypothesis versus the alternative (which I specifically listed in introduction). Such hypothesis test is performed by computing the F-statistic. WHen there is no relationship between the response and predictors, one would expect the F-statistic to take a value close to 1. On the other hand, if alternative hypothesis is ture, then we expect F-statistic to be greater than 1. 
+Recall that in the  simple linear regression setting, in order to determine whether there is a relationship between the response and the predictor we can simply check whether $\beta_0 = 0$. Now, we are performing a multiple linear regression with 3 predictors, thus we need to ask whether all of the regression coefficients are 0. In this case, whether $\beta_1 = \beta_2 = \beta_3 = 0$. As in the simple linear regression setting, we use a hypothesis test to answer this question. We test the null hypothesis versus the alternative (which I specifically listed in introduction). Such hypothesis test is performed by computing the F-statistic. When there is no relationship between the response and predictors, one would expect the F-statistic to take a value close to 1. On the other hand, if alternative hypothesis is ture, then we expect F-statistic to be greater than 1. 
 
 ```{r results = 'asis', eval= T}
 load("~/stat159-hw/stat159-fall2016-hw03/data/regression.RData")
@@ -112,10 +136,10 @@ The The F-statistic for the multiple linear regression model obtained by regress
 
 ### Two: Do all predictors help to explain the response, or is only a subset of the predictors useful?  
 
-It is possible that all of the predictors are associated with the response, but it is more often the case that the response is only realted to a subset of the predictors. Then, we would like to perform a variable selection that fit a single model involving each predictor to determine which predictors are associated with the response. Looking at each test's p-value, we are able to explain whether it is associated with *sales*. If the p-value is small, then we would be able to believe that there is a relationship between the single predictor with *sales*. On the other hand, if the p-value is large, then we have reason to believe that there is no relationship between two.  Looking at Tables of single linear regressions, we can see that the estimated coefficient on TV is 
+It is possible that all of the predictors are associated with the response, but it is more often the case that the response is only realted to a subset of the predictors. Then, we would like to perform a variable selection that fit a single model involving each predictor to determine which predictors are associated with the response. However, variable selection in this example needs to run 8 tests, which is too tedious. Thus, we can Looking at the estimated coefficients in the multiple linear regression. The P-value tells whether the predictor has a statistically significant association with *sales*. If the p-value is small, then we would be able to believe that there is a relationship between the single predictor and *sales*. On the other hand, if the p-value is large, then we have reason to believe that there is no relationship between two. Looking at Tables of single linear regressions, we can see that P-values of the estimated coefficient of *TV* and *Radio* is both 0, which means that they are both statistically significant at 1% level, so we reject the null hypothesis that they do not have a relationship with *Sales*. However, p-value of *Newspaper* is too high, that we are not able to reject the null. Then, *Newspaper* fails to explain the response. In this case, only *TV* and *Radio* are the useful predictors. 
 
 ### Three: How well does the model fit the data?  
-Two of the most common numerical measures of model fit are RSE and R^2. An R^2 values close to 1 indicates that the model explains a large protion of the variance in the response variable. We saw in Table 6, for the Advertising data set, the model that uses all there advertising media to predict sales has an R^2 value of `r round(regression_sum_multi$r.squared, digits = 4 )`  This is very close to 1, which means that our explainatory varibales work well to explain changes in sales. Furthermore, RSE is the estimate of the standard deviation of error, and when it is small, it indicates a well-fitted model on data. In this multiple regression model, the RSE is `r round(regression_sum_multi$sigma, digits = 4)`. Thus, we can also tell from RSE that is a well-fitted model on advertising data set. 
+Two of the most common numerical measures of model fit are RSE and R^2. An R^2 values close to 1 indicates that the model explains a large protion of the variance in the response variable. We saw in Table 6, for the Advertising data set, the model that uses all there advertising media to predict sales has an R^2 value of `r round(regression_sum_multi$r.squared, digits = 4 )` .This is very close to 1, which means that our explainatory varibales work well to explain changes in sales. Furthermore, RSE is the estimate of the standard deviation of error, and when it is small, it indicates a well-fitted model on data. In this multiple regression model, the RSE is `r round(regression_sum_multi$sigma, digits = 4)` .Thus, we can also tell from RSE that is a well-fitted model on advertising data set. 
 
 ### Four: How accurate is the prediction?
 There are uncertainty associated with the estimated prediciton of sales, to answer how accurate is the prediction, we can simply look at the standard error of each estimated coefficients in Table 4. The standard of TV, Radio and newspaper are all very small, which means that we can be confidently sure that the estimation of explaintary variables are close to the true model. Furthermore, the confidence can also be shown by R^2 like the previous question, that the R^2 value is close to 1, which means that the prediction model is well-fitted.
